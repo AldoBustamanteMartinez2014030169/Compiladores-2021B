@@ -1,3 +1,5 @@
+#ifndef __TABLA_H__
+#define __TABLA_H__
 
 #include <stdlib.h> /* malloc. */
 #include <string.h> /* strlen. */
@@ -27,4 +29,4 @@ symrec *putsym (char const *, int);
 symrec *getsym (char const *);
 
 
-
+#endif//__TABLA_H__

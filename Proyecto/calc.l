@@ -1,7 +1,7 @@
 %{
-#define YYSTYPE double
-#include "calc.tab.h"
 #include "tabla.h"
+#include "calc.tab.h"
+
 %}
 
 white [ \t]+
@@ -15,8 +15,17 @@ real {integer}("."{integer})?{exponent}?
 {white} { }
 {real} { printf("Veo un numero\n"); yylval.NUMERO=atof(yytext); return NUMERO; }
 
-[a-b]+ { printf("Veo una variable \n"); yylval.VAR=putsym(yytext, VAR); return VAR; }
-[a-b]+ return FNCT;
+[a-z]+ {printf("Veo una variable \n");
+		if(!getsym(yytext))
+		{
+			yylval.VAR=putsym(yytext, VAR);
+		}
+		else
+		{
+			yylval.VAR=getsym(yytext);
+		}
+		return VAR; }
+[a-z]+ return FNCT;
 "+" return MAS;
 "-" return MENOS;
 "*" return POR;

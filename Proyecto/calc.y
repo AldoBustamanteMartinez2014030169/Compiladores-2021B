@@ -4,7 +4,7 @@
 #include "tabla.h"
 //#define YYSTYPE double
 int yyerror (char const *s);
-//extern int yylex (void);
+extern int yylex (void);
 %}
 
 %define api.value.type union /* Generate YYSTYPE from these types:  */
@@ -31,9 +31,17 @@ linea: ENTER;
 linea: expresion ENTER { printf("Resultado: %f\n", $1); };
 
 //SINTACTICO								SEMANTICO
-expresion: NUMERO 							{ $$=$1; 										};
-expresion: VAR								{ $$ = $1->value.var; 							};
-expresion: VAR IGUAL expresion				{ printf("Intentando asignar \n"); $$ = $3; printf("valor: %f\n", $3); $1->value.var = $3; printf("valor: %f\n", $1);	};
+expresion: NUMERO 							{ $$ = $1; 										};
+expresion: VAR								{ $$ = $1->value.var; printf("Valor de variable: %f\n", $1->value.var);		};
+expresion: 
+ VAR IGUAL expresion {
+                        printf("Intentando asignar \n");
+                        $$ = $3;
+                        printf("valor: %f\n", $3);
+                        $1->value.var = $3;
+                        printf("valor: %f\n", $1->value.var);	
+                     }
+;
 expresion: FNCT IZQ expresion DER			{ $$ = (*($1->value.fnctptr))($3); 				};
 expresion: expresion MAS expresion 			{ $$ = $1 + $3; printf("%f + %f\n", $1, $3); 	};
 expresion: expresion MENOS expresion 		{ $$ = $1 - $3; printf("%f - %f\n", $1, $3); 	};
@@ -107,6 +115,7 @@ return 0;
 
 int yyerror(char const *s) {
 	printf("%s\n", s);
+  	return 0;
 }
 
 int main() {
@@ -116,7 +125,7 @@ int main() {
     }
 
 	init_table ();
-
+	
     return 0;
 }
 

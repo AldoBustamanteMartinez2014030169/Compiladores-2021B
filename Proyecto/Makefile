@@ -4,4 +4,4 @@ calc: calc.y calc.l
 	gcc -Wall -o calc calc.lex.c calc.tab.c -lfl -lm 
 
 clean:
-	rm -rf calc
+	rm -f calc calc.tab.* lex.yy.* calc.lex.*
