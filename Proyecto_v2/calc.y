@@ -44,18 +44,18 @@ expresion:
                      }
 ;
 expresion: FNCT IZQ expresion DER			{ $$ = (*($1->value.fnctptr))($3); 				};
-expresion: expresion MAS expresion 			{ $$ = $1 + $3; printf("%f + %f\n", $1, $3); 	};
-expresion: expresion MENOS expresion 			{ $$ = $1 - $3; printf("%f - %f\n", $1, $3); 	};
-expresion: expresion POR expresion 			{ $$ = $1 * $3; printf("%f * %f\n", $1, $3); 	};
-expresion: expresion ENTRE expresion 			{ $$ = $1 / $3; printf("%f / %f\n", $1, $3); 	};
+expresion: expresion MAS expresion 			{ $$ = $1 + $3; printf("%f + %f\n", $1, $3); 			};
+expresion: expresion MENOS expresion 			{ $$ = $1 - $3; printf("%f - %f\n", $1, $3); 			};
+expresion: expresion POR expresion 			{ $$ = $1 * $3; printf("%f * %f\n", $1, $3); 			};
+expresion: expresion ENTRE expresion 			{ $$ = $1 / $3; printf("%f / %f\n", $1, $3); 			};
 expresion: MENOS expresion %prec NEG 			{ $$ = -$2; printf("- %f\n", $2); 				};
-expresion: expresion POTENCIA expresion 		{ $$ = pow($1, $3); printf("%f ^ %f\n", $1, $3); };
-expresion: expresion IGUALQUE expresion			{ if($1 == $3){ $$ = 1; } else{ $$ = 0; } 		};
-expresion: expresion MAYORQUE expresion			{ if($1 > $3){ $$ = 1; } else{ $$ = 0; } 		};
-expresion: expresion MENORQUE expresion			{ if($1 < $3){ $$ = 1; } else{ $$ = 0; } 		};
-expresion: IF IZQ expresion DER				{  												};
-expresion: WHILE IZQ expresion DER			{												};
-expresion: IZQ expresion DER 				{ $$ = $2; };
+expresion: expresion POTENCIA expresion 		{ $$ = pow($1, $3); printf("%f ^ %f\n", $1, $3); 		};
+expresion: expresion IGUALQUE expresion			{ if($1 == $3){ $$ = 1; } else{ $$ = 0; } 			};
+expresion: expresion MAYORQUE expresion			{ if($1 > $3){ $$ = 1; } else{ $$ = 0; } 			};
+expresion: expresion MENORQUE expresion			{ if($1 < $3){ $$ = 1; } else{ $$ = 0; } 			};
+expresion: IF IZQ expresion DER				{  								};
+expresion: WHILE IZQ expresion DER			{								};
+expresion: IZQ expresion DER 				{ $$ = $2; 							};
 
 %%
 
