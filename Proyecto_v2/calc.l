@@ -39,7 +39,8 @@ real {integer}("."{integer})?{exponent}?
 "<" return MENORQUE;
 "\n" return ENTER;
 "if" { count(); return(IF); }
-"while" {count(); return(WHILE);}
+"while" { count(); return(WHILE); }
+"printf" { count(); return(PRINTF); }
 
 %%
 
