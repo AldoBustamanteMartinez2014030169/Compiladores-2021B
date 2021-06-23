@@ -111,24 +111,7 @@ case EQ : if ( stack[top-1] == stack[top] )
 stack[--top] = 1;
 else stack[--top] = 0;
 break;
-case GT : if ( stack[top-1] > stack[top] )
-stack[--top] = 1;
-else stack[--top] = 0;
-top--;
-break;
 case ADD : stack[top-1] = stack[top-1] + stack[top];
-top--;
-break;
-case SUB : stack[top-1] = stack[top-1] - stack[top];
-top--;
-break;
-case MULT : stack[top-1] = stack[top-1] * stack[top];
-top--;
-break;
-case DIV : stack[top-1] = stack[top-1] / stack[top];
-top--;
-break;
-case PWR : stack[top-1] = stack[top-1] * stack[top];
 top--;
 break;
 default : printf( "%sInternal Error: Memory Dump\n" );
