@@ -12,7 +12,7 @@ extern int yylex (void);
 %token <double> NUMERO
 %token MAS MENOS POR ENTRE POTENCIA MAYORQUE MENORQUE IGUALQUE IGUAL
 %token IZQ DER
-%token IF WHILE
+%token IF WHILE PRINTF
 %token ENTER
 %type  <double> expresion
 
@@ -32,7 +32,7 @@ linea: ENTER;
 linea: expresion ENTER { printf("Resultado: %f\n", $1); };
 
 //SINTACTICO								SEMANTICO
-expresion: NUMERO 							{ $$ = $1; 										};
+expresion: NUMERO 							{ $$ = $1; 									};
 expresion: VAR								{ $$ = $1->value.var; printf("Valor de variable: %f\n", $1->value.var);		};
 expresion: 
  VAR IGUAL expresion {
@@ -55,6 +55,7 @@ expresion: expresion MAYORQUE expresion			{ if($1 > $3){ $$ = 1; } else{ $$ = 0;
 expresion: expresion MENORQUE expresion			{ if($1 < $3){ $$ = 1; } else{ $$ = 0; } 			};
 expresion: IF IZQ expresion DER				{  								};
 expresion: WHILE IZQ expresion DER			{								};
+expresion: PRINTF IZQ expresion DER			{  								};
 expresion: IZQ expresion DER 				{ $$ = $2; 							};
 
 %%
@@ -73,6 +74,7 @@ struct init const arith_fncts[] =
 { "ln",   log  },
 { "sin",  sin  },
 { "sqrt", sqrt },
+{ "printf", printf },
 { 0, 0 },
 };
 
